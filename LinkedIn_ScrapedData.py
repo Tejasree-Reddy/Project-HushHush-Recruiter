@@ -33,7 +33,7 @@ sign_in_button = driver.find_element(By.XPATH,'//*[@type="submit"]')
 sign_in_button.click()
 sleep(20)
 
-profile_data = []
+profile_data=[]
 links =[]
 
 # href_skill = [element.get_attribute("href") for element in driver.find_elements(By.XPATH, "//div[@class='pvs-list__footer-wrapper']//a[contains(@id,'skills')]")]
@@ -142,8 +142,14 @@ for x in range(0, 300, 10):
     # Append the URLs to the links list
     # Wait for a short interval before the next iteration
     sleep(20)
+# len(links)
+
+# removing duplicates from the urls list and filtering the unwanted urls
+data = list(set(links))
+filtered_links = [l for l in data if "translate.google.com/translate?" not in l]
+# print(filtered_links)
 # print(links)    
-split_links= [links[x:x+50] for x in range(0,len(links), 50)]
+split_links= [filtered_links[x:x+50] for x in range(0,len(filtered_links), 50)]
 
 
 lock=Lock()
