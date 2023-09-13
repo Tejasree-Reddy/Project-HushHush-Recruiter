@@ -15,12 +15,12 @@ opts = Options()
 
 driver = webdriver.Chrome(options=opts, executable_path=r'C:\\Users\\dell\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe')
 
-def validate_field(field):
-    if field:
-        pass
-    else:
-        field='No results'
-    return field
+# def validate_field(field):
+#     if field:
+#         pass
+#     else:
+#         field='No results'
+#     return field
 
 driver.get('https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin')
 username = driver.find_element(By.ID,'username')
@@ -128,7 +128,7 @@ def skills(prof_link,href_skill=[None]):
         skills_list =[]
     
     
-    # print(skills_list)
+    
     return list(set(skills_list))
 
 for x in range(0, 300, 10):
@@ -139,7 +139,7 @@ for x in range(0, 300, 10):
     # Scrape the LinkedIn URLs
     linkedin_urls = [my_element.get_attribute("href") for my_element in driver.find_elements(By.XPATH, "//div[@class='yuRUbf']//a")]
     links.extend(linkedin_urls)
-         # Append the URLs to the links list
+    # Append the URLs to the links list
     # Wait for a short interval before the next iteration
     sleep(20)
 # print(links)    
@@ -174,14 +174,9 @@ def linkedin_scrape_function(chunk,lock):
         candidate_exp=experience(link,exp_url)
         # print(href_skill)
         candidate_skills=skills(link,skill_url)
+        ID=ID+1
 
-#         ID=ID+1
-        # print('\n')
-        # print('Name: '+name)
-        # print('Job_Title: '+job_title)
-        # print(candidate_edu)
-        # print(candidate_exp)
-        # print(candidate_skills)
+
         
         data={'ID':ID,
             'Name':name,
@@ -207,6 +202,6 @@ for eachThread in threadList:
     
 df= pd.DataFrame(profile_data)
 
-df.to_excel("Linkedin_data_engineers.xlsx")
+df.to_excel("Linkedin_dataset.xlsx")
 
 driver.quit()
